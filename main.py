@@ -2,15 +2,21 @@ import secrets
 import string
 
 
+# method to generate the cipher text
 def generate_cipher_text(message):
     input_message = message
+    # creates a secret key/one time pad using the secrets library with the combination of upper and lowercase english
+    # letters and matches with the same length of the original message.
     pad_message = ''.join(
         secrets.choice(string.ascii_uppercase + string.ascii_lowercase) for i in range(len(input_message)))
     cipher_message = ''
 
     for x in range(len(input_message)):
+        # perform xor operation on characters from both the one time pad and the original message
         xor_current_chars = ord(input_message[x]) ^ ord(pad_message[x])
+        # convert it back to characters from ASCII values
         cipher_current_char = chr(xor_current_chars)
+        # append the characters together to form the cipher message
         cipher_message += cipher_current_char
 
     output = [cipher_message, pad_message]
@@ -24,16 +30,21 @@ def decrypt_cipher_text(cipher, secret):
     original_message = ''
 
     for x in range(len(cipher_message)):
+        # perform xor operation on characters from both the one time pad and the cipher message
         xor_current_chars = ord(cipher_message[x]) ^ ord(pad_message[x])
+        # convert it back to characters from ASCII values
         original_message_current_char = chr(xor_current_chars)
+        # append the characters together to form the original message
         original_message += original_message_current_char
 
     output = original_message
 
     return output
 
+
+# method to write the values on to a file
 def write_to_file(filename, text):
-    with open(filename+'.txt', "w+") as file:
+    with open(filename + '.txt', "w+") as file:
         file.write(text)
 
 
