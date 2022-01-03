@@ -8,7 +8,7 @@ def generate_cipher_text(message):
     # creates a secret key/one time pad using the secrets library with the combination of upper and lowercase english
     # letters and matches with the same length of the original message.
     pad_message = ''.join(
-        secrets.choice(string.ascii_uppercase + string.ascii_lowercase) for i in range(len(input_message)))
+        secrets.choice(string.ascii_letters) for i in range(len(input_message)))
     cipher_message = ''
 
     for x in range(len(input_message)):
