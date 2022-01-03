@@ -48,6 +48,13 @@ def write_to_file(filename, text):
         file.write(text)
 
 
+# method to read contents from a given file
+def read_from_file(filename):
+    with open(filename + '.txt') as f:
+        file_data = f.read()
+        return file_data
+
+
 option = input("Do you wish to encrypt or decrypt?")
 
 if option == "encrypt":
@@ -63,9 +70,10 @@ if option == "encrypt":
     print("Secret key/one time pad key has been stored as secret.txt")
 
 elif option == "decrypt":
-    cipher = input("Enter your cipher message:")
-    secret = input("Enter your secret key:")
-    if (len(cipher) == len(secret)):
+    cipher = read_from_file('cipher')
+    secret = read_from_file('secret')
+    # condition to make sure that the cipher and the secret key has the same amount of characters
+    if len(cipher) == len(secret):
         print("Your decrypted text is: " + decrypt_cipher_text(cipher, secret))
     else:
         print("Both cipher and secret key should contain same number of characters")
